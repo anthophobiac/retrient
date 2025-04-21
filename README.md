@@ -20,7 +20,7 @@ c := client.New(
     10*time.Second,                          // timeout
     3,                                       // maximum retries
     1*time.Second,                           // backoff interval
-    map[string]string{
+    map[string]string{                       // custom headers
         "Content-Type": "application/json",
     },
 )
