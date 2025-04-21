@@ -48,16 +48,16 @@ func (c *Client) DoRequest(
 
 		log.Printf("Attempt %d failed: %v", attempt+1, err)
 
-		if attempt == c.MaxRetries {
-			break
-		}
-
 		if resp != nil {
 			_, err := io.Copy(io.Discard, resp.Body)
 			if err != nil {
 				return nil, err
 			}
 			_ = resp.Body.Close()
+		}
+
+		if attempt == c.MaxRetries {
+			break
 		}
 
 		sleep := c.Backoff * (1 << attempt)
